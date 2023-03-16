@@ -1,3 +1,4 @@
+import { interFont } from '@/lib/nextFonts';
 import type { ReactNode } from 'react';
 
 interface LayoutPageProps {
@@ -5,5 +6,5 @@ interface LayoutPageProps {
 }
 
 export default function LayoutPage({ children }: LayoutPageProps) {
-  return <div>{children}</div>;
+  return <div className={`${interFont.variable} font-inter`}>{children}</div>;
 }

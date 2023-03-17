@@ -14,6 +14,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.54.1
   '@vitejs/plugin-react': ^3.1.0
   autoprefixer: ^10.4.14
+  classnames: ^2.3.2
   eslint: 8.35.0
   eslint-config-next: 13.2.3
   eslint-config-prettier: ^8.7.0
@@ -41,6 +42,7 @@ dependencies:
   '@types/node': 18.14.6
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
+  classnames: 2.3.2
   eslint: 8.35.0
   eslint-config-next: 13.2.3_ycpbpc6yetojsgtrx3mwntkhsu
   next: 13.2.3_biqbaboplfbrettd7655fr4n2y
@@ -1892,6 +1894,13 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /classnames/2.3.2:
+    resolution:
+      {
+        integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==,
+      }
+    dev: false
 
   /clean-stack/2.2.0:
     resolution:

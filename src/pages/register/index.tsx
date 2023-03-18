@@ -56,7 +56,7 @@ export default function Register() {
               </div>
 
               <h1 className="font-poppins text-2xl font-bold md:mb-1 md:text-4xl">
-                Dafter Akun
+                Daftar Akun
               </h1>
               <p className="md:text-lg">
                 Sudah memiliki akun?{' '}

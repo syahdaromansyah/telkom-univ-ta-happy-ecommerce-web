@@ -60,7 +60,7 @@ export default function NavPage() {
                   <li>
                     <Link
                       className="inline-block w-full rounded-md bg-zinc-700 py-2 text-center font-poppins font-semibold text-zinc-100 md:text-lg"
-                      href="/"
+                      href="/login"
                     >
                       Masuk
                     </Link>
@@ -69,7 +69,7 @@ export default function NavPage() {
                   <li>
                     <Link
                       className="inline-block w-full rounded-md bg-zinc-700 py-2 text-center font-poppins font-semibold text-zinc-100 md:text-lg"
-                      href="/"
+                      href="/register"
                     >
                       Daftar Akun
                     </Link>

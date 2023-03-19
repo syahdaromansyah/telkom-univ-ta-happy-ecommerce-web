@@ -15,6 +15,7 @@ specifiers:
   '@vitejs/plugin-react': ^3.1.0
   autoprefixer: ^10.4.14
   classnames: ^2.3.2
+  date-fns: ^2.29.3
   eslint: 8.35.0
   eslint-config-next: 13.2.3
   eslint-config-prettier: ^8.7.0
@@ -43,6 +44,7 @@ dependencies:
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
   classnames: 2.3.2
+  date-fns: 2.29.3
   eslint: 8.35.0
   eslint-config-next: 13.2.3_ycpbpc6yetojsgtrx3mwntkhsu
   next: 13.2.3_biqbaboplfbrettd7655fr4n2y
@@ -2086,6 +2088,14 @@ packages:
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
     dev: true
+
+  /date-fns/2.29.3:
+    resolution:
+      {
+        integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==,
+      }
+    engines: { node: '>=0.11' }
+    dev: false
 
   /debug/3.2.7:
     resolution:

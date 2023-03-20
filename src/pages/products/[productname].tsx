@@ -54,7 +54,7 @@ export default function ProductDetail() {
         <div className="container mx-auto max-w-6xl px-6 lg:px-0">
           <div className="pt-8 pb-10 lg:pt-16">
             <h1 className="mb-4 text-center font-poppins text-2xl font-bold md:mb-8 lg:mb-16 lg:text-4xl">
-              Product Detail
+              Detail Produk
             </h1>
 
             <article className="mb-8 md:grid md:grid-cols-2 md:gap-x-4 lg:mb-12">

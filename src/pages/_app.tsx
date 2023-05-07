@@ -1,11 +1,15 @@
 import LayoutPage from '@/components/LayoutPage';
+import { reduxStore } from '@/redux-app/redux-store/store';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
+import { Provider as ReduxProvider } from 'react-redux';
 
 export default function CustomApp({ Component, pageProps }: AppProps) {
   return (
-    <LayoutPage>
-      <Component {...pageProps} />
-    </LayoutPage>
+    <ReduxProvider store={reduxStore}>
+      <LayoutPage>
+        <Component {...pageProps} />
+      </LayoutPage>
+    </ReduxProvider>
   );
 }

@@ -2,43 +2,49 @@ import cn from 'classnames';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { UrlObject } from 'url';
 import googlePlayLogo from '../assets/logos/google-play-logo.png';
 import steamLogo from '../assets/logos/steam-logo.png';
 
 interface TransactionCardProps {
-  orderedId: string;
-  productBrand: 'google-play' | 'steam';
-  productName: string;
-  productPriceName: string;
+  idOrder: string;
+  brand: 'google-play' | 'steam';
+  name: string;
+  priceName: string;
+  price: number;
+  quantity: number;
+  totalPrice: number;
   orderedDate: string;
+  expiredDate: string;
   statusPayment: boolean;
-  totalPayment: number;
-  paymentDetailLink: string | UrlObject;
 }
 
+const productBrand = {
+  'google-play': googlePlayLogo,
+  steam: steamLogo,
+};
+
 export default function TransactionCard({
-  orderedId,
-  productBrand,
-  productName,
-  productPriceName,
+  idOrder,
+  brand,
+  name,
+  priceName,
+  quantity,
+  price,
+  totalPrice,
   orderedDate,
+  expiredDate,
   statusPayment,
-  totalPayment,
-  paymentDetailLink,
 }: TransactionCardProps) {
+  const isExpired = Date.now() - Date.parse(expiredDate) > 0;
+
   return (
     <article className="overflow-hidden rounded-md bg-zinc-800">
       <div className="mb-2 bg-zinc-100 py-10">
         <div className="h-16">
           <Image
             className="mx-auto h-full w-max"
-            src={productBrand === 'google-play' ? googlePlayLogo : steamLogo}
-            alt={
-              productBrand === 'google-play'
-                ? 'Logo Google Play beserta teks'
-                : 'Logo Steam'
-            }
+            src={productBrand[brand]}
+            alt={`Logo ${name} beserta teks`}
           />
         </div>
       </div>
@@ -51,31 +57,56 @@ export default function TransactionCard({
         </div>
 
         <div className="mb-4">
-          <h2 className="font-poppins text-xl font-bold">{productName}</h2>
-          <p>({productPriceName})</p>
+          <h2 className="font-poppins text-xl font-bold">{name}</h2>
+          <p>({priceName})</p>
         </div>
 
         <div className="grid gap-y-2">
           <div>
             <h3 className="font-poppins font-bold">ID Pemesanan</h3>
-            <p>{orderedId}</p>
+            <p className="w-full break-all rounded-md bg-zinc-600 py-1 px-2">
+              {idOrder}
+            </p>
           </div>
 
           <div>
             <h3 className="font-poppins font-bold">Tanggal Pemesanan</h3>
-            <p>{format(new Date(orderedDate), 'dd-MM-yyyy')}</p>
+            <p>{format(new Date(orderedDate), 'dd-MM-yyyy, HH:mm:ss')}</p>
+          </div>
+
+          <div>
+            <h3 className="font-poppins font-bold">Tanggal Kadaluarsa</h3>
+            {format(new Date(expiredDate), 'dd-MM-yyyy, HH:mm:ss')}
           </div>
 
           <div>
             <h3 className="font-poppins font-bold">Status Pembayaran</h3>
             <p
               className={cn('max-w-max rounded-md px-2 py-1', {
-                'bg-amber-600': !statusPayment,
+                'bg-amber-600': !statusPayment && !isExpired,
                 'bg-emerald-600': statusPayment,
+                'bg-rose-600': !statusPayment && isExpired,
               })}
             >
-              {statusPayment ? 'Sudah Bayar' : 'Belum Bayar'}
+              {!statusPayment && !isExpired && 'Belum Acc'}
+              {statusPayment && 'Sudah Acc'}
+              {!statusPayment && isExpired && 'Kadaluarsa'}
             </p>
+          </div>
+
+          <div>
+            <h3 className="font-poppins font-bold">Harga Produk</h3>
+            <p>
+              {new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+              }).format(price)}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-poppins font-bold">Jumlah Pembelian</h3>
+            <p>{quantity}</p>
           </div>
 
           <div>
@@ -84,7 +115,7 @@ export default function TransactionCard({
               {new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
-              }).format(totalPayment)}
+              }).format(totalPrice)}
             </p>
           </div>
         </div>
@@ -93,9 +124,9 @@ export default function TransactionCard({
       <div>
         <Link
           className="inline-block w-full bg-rose-600 py-4 text-center font-poppins font-semibold"
-          href={paymentDetailLink}
+          href={`/order-detail/${idOrder}`}
         >
-          Detail Pembayaran
+          Detail Pemesanan
         </Link>
       </div>
     </article>

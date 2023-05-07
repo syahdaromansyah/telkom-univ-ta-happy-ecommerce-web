@@ -21,7 +21,7 @@ export default function FeedbackCard({
         <p className="mb-2 font-semibold">
           Diulas pada{' '}
           <time dateTime={feedbackDate}>
-            {format(new Date(feedbackDate), 'dd-MM-yyyy')}
+            {format(new Date(feedbackDate), 'dd-MM-yyyy, HH:mm:ss')}
           </time>
         </p>
 

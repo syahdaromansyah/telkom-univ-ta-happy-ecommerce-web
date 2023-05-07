@@ -1,41 +1,55 @@
 import happyLogoLight from '@/assets/logos/happy-logo-light.png';
+import config from '@/config/config';
+import axios from 'axios';
 import cn from 'classnames';
 import Image from 'next/image';
-import type { SubmitHandler } from 'react-hook-form';
-import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 interface ReviewBoardProps {
   openReview: boolean;
   closeReviewHandler: () => void;
+  disableReviewHandler: () => void;
+  productId: number;
   productName: string;
   productPriceName: string;
-}
-
-interface ReviewInputs {
-  review: string;
 }
 
 export default function ReviewBoard({
   openReview,
   closeReviewHandler,
+  disableReviewHandler,
+  productId,
   productName,
   productPriceName,
 }: ReviewBoardProps) {
-  const { register, handleSubmit } = useForm<ReviewInputs>();
+  const [feedback, setFeedback] = useState<string>(() => '');
 
-  const submitReviewHandler: SubmitHandler<ReviewInputs> = (data) => {
-    console.info(
-      data.review
-        .trim()
-        .replace(/[\r\n]/gm, ' ')
-        .split(' ')
-        .filter((word) => word !== '')
-        .join(' ')
-    );
-  };
+  const nextRouter = useRouter();
 
-  const reviewHandler = () => {
-    return;
+  const reviewHandler = async () => {
+    const orderId = nextRouter.query.orderid as string;
+
+    if (orderId) {
+      try {
+        await axios.post(
+          `${config.HAPPY_BASE_URL_API}/feedbacks`,
+          {
+            idProduct: productId,
+            idOrder: orderId,
+            feedback: feedback,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+
+        closeReviewHandler();
+        disableReviewHandler();
+      } catch (error) {
+        await nextRouter.replace('/login');
+      }
+    }
   };
 
   return (
@@ -68,22 +82,23 @@ export default function ReviewBoard({
             </div>
           </div>
 
-          <form
-            onSubmit={handleSubmit(submitReviewHandler)}
-            className="mb-2 grid gap-y-4"
-          >
+          <form className="mb-2 grid gap-y-4">
             <label className="inline-block w-full" htmlFor="review-product">
               <textarea
                 className="min-h-[128px] w-full resize-none rounded-md bg-zinc-600 p-2 md:text-lg"
                 id="review-product"
                 placeholder="Ulasan Anda"
-                {...register('review')}
+                value={feedback}
+                onChange={(e) => {
+                  const inputValue = e.target.value.split(' ').join(' ');
+                  setFeedback(() => inputValue);
+                }}
               ></textarea>
             </label>
 
             <button
               className="inline-block w-full rounded-md bg-rose-600 py-3 text-center font-poppins text-lg font-semibold lg:text-xl"
-              type="submit"
+              type="button"
               onClick={reviewHandler}
             >
               Kirim Ulasan

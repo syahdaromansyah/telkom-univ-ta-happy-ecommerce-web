@@ -1,26 +1,62 @@
 import happyLogoLight from '@/assets/logos/happy-logo-light.png';
+import config from '@/config/config';
+import type { WebResponse } from '@/types/types';
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
 import cn from 'classnames';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 interface CheckoutBoardProps {
   openCheckout: boolean;
   closeCheckoutHandler: () => void;
+  productId: number;
   productName: string;
   productPriceName: string;
+  productPrice: number;
   totalProduct: number;
-  totalPrice: number;
 }
 
 export default function CheckoutBoard({
   openCheckout,
   closeCheckoutHandler,
+  productId,
   productName,
   productPriceName,
+  productPrice,
   totalProduct,
-  totalPrice,
 }: CheckoutBoardProps) {
-  const checkoutHandler = () => {
-    return;
+  const nextRouter = useRouter();
+
+  const checkoutHandler = async () => {
+    document.body.classList.remove('overflow-hidden');
+
+    try {
+      await axios.post(
+        `${config.HAPPY_BASE_URL_API}/orders`,
+        {
+          idProduct: productId,
+          quantity: totalProduct,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      await nextRouter.replace('/transactions');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorResponse:
+          | AxiosResponse<WebResponse<string>, string>
+          | undefined = error.response;
+        const errorResData = errorResponse?.data;
+        const errorResCode = errorResData?.code;
+
+        if (errorResCode === 401) {
+          await nextRouter.replace('/login');
+        }
+      }
+    }
   };
 
   return (
@@ -69,7 +105,7 @@ export default function CheckoutBoard({
                 {new Intl.NumberFormat('id-ID', {
                   style: 'currency',
                   currency: 'IDR',
-                }).format(totalPrice * totalProduct)}
+                }).format(productPrice * totalProduct)}
               </p>
             </div>
           </div>

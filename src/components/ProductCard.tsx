@@ -1,25 +1,29 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { UrlObject } from 'url';
 import googlePlayLogo from '../assets/logos/google-play-logo.png';
 import steamLogo from '../assets/logos/steam-logo.png';
 
 interface ProductCardProps {
+  productId: number;
   productBrand: 'google-play' | 'steam';
   productName: string;
   productPriceName: string;
   productStock: number;
   productPrice: number;
-  productLink: string | UrlObject;
 }
 
+const productBrandLogo = {
+  'google-play': googlePlayLogo,
+  steam: steamLogo,
+};
+
 export default function ProductCard({
+  productId,
   productBrand,
   productName,
   productPriceName,
   productStock,
   productPrice,
-  productLink,
 }: ProductCardProps) {
   return (
     <article className="overflow-hidden rounded-md bg-zinc-800">
@@ -27,12 +31,8 @@ export default function ProductCard({
         <div className="h-16">
           <Image
             className="mx-auto h-full w-max"
-            src={productBrand === 'google-play' ? googlePlayLogo : steamLogo}
-            alt={
-              productBrand === 'google-play'
-                ? 'Logo Google Play beserta teks'
-                : 'Logo Steam'
-            }
+            src={productBrandLogo[productBrand]}
+            alt={`Logo ${productName} beserta teks`}
           />
         </div>
       </div>
@@ -69,7 +69,7 @@ export default function ProductCard({
       <div>
         <Link
           className="inline-block w-full bg-rose-600 py-4 text-center font-poppins font-semibold"
-          href={productLink}
+          href={`/products/${productId}`}
         >
           Detail Produk
         </Link>

@@ -1,8 +1,39 @@
 import NavPage from '@/components/NavPage';
+import ProductCard from '@/components/ProductCard';
+import config from '@/config/config';
 import { poppinsFont } from '@/lib/nextFonts';
+import type { ProductData, WebResponse } from '@/types/types';
 import Head from 'next/head';
+import { ChangeEvent, useState } from 'react';
+import type { Fetcher } from 'swr';
+import useSWR from 'swr';
+
+const swrFetcher: Fetcher<WebResponse<ProductData[]>, string> = (...args) =>
+  fetch(...args).then((res) => res.json());
 
 export default function Home() {
+  const [searchProduct, setSearchProduct] = useState<string>(() => '');
+
+  const { data: productsGetResponse, isLoading } = useSWR(
+    `${config.HAPPY_BASE_URL_API}/products`,
+    swrFetcher
+  );
+
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setSearchProduct(() => inputValue);
+  };
+
+  const products = () => {
+    if (productsGetResponse) {
+      return productsGetResponse.data.filter((product) =>
+        product.name.toLowerCase().startsWith(searchProduct.toLowerCase())
+      );
+    } else {
+      return [];
+    }
+  };
+
   return (
     <div className={`${poppinsFont.variable}`}>
       <Head>
@@ -28,11 +59,49 @@ export default function Home() {
                   type="text"
                   placeholder="Cari produk"
                   id="search-product"
+                  value={searchProduct}
+                  onChange={searchHandler}
                 />
               </label>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
+            {isLoading && (
+              <div className="py-48">
+                <p className="mx-auto max-w-max rounded-md bg-zinc-800 py-1 px-3 md:text-lg">
+                  Memuat semua produk...
+                </p>
+              </div>
+            )}
+
+            {!isLoading && (
+              <>
+                {products().length > 0 && (
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {products().map((product) => {
+                      return (
+                        <ProductCard
+                          key={product.id}
+                          productId={product.id}
+                          productBrand={product.brand}
+                          productName={product.name}
+                          productPriceName={product.priceName}
+                          productPrice={product.productPrice}
+                          productStock={product.productStock}
+                        />
+                      );
+                    })}
+                  </div>
+                )}
+
+                {products().length === 0 && (
+                  <div className="pt-48">
+                    <p className="mx-auto max-w-max rounded-md bg-zinc-800 py-1 px-3 md:text-lg">
+                      Produk tidak ditemukan
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </main>

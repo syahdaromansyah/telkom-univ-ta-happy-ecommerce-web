@@ -11,7 +11,7 @@ module.exports = {
     project: true,
     tsconfigRootDir: __dirname,
   },
-  plugins: ['@typescript-eslint', 'unused-imports'],
+  plugins: ['@typescript-eslint', 'unused-imports', 'testing-library'],
   root: true,
   rules: {
     '@typescript-eslint/no-misused-promises': [
@@ -33,5 +33,15 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
+    'testing-library/await-async-query': 'error',
+    'testing-library/no-await-sync-query': 'error',
+    'testing-library/no-debugging-utils': 'warn',
+    'testing-library/no-dom-import': 'off',
   },
+  overrides: [
+    {
+      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: ['plugin:testing-library/react'],
+    },
+  ],
 };

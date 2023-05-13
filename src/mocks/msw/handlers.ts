@@ -13,6 +13,9 @@ interface RegisterRequestBody {
 }
 
 export const handlers = [
+  rest.get('/logout', async (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
   rest.post('/login', async (req, res, ctx) => {
     const { username, password } = await req.json<LoginRequestBody>();
 

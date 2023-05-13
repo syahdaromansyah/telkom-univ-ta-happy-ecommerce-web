@@ -69,6 +69,11 @@ export default function NavPage() {
                   <FontAwesomeIcon className="h-full" icon={faUserCircle} />
                 </div>
               </div>
+
+              <p className="absolute top-[-9999px] left-[-9999px]">
+                {!openNavBoard && 'Buka halaman navigasi menu'}{' '}
+                {openNavBoard && 'Tutup halaman navigasi menu'}
+              </p>
             </button>
           </div>
 
@@ -79,6 +84,8 @@ export default function NavPage() {
                 hidden: !openNavBoard,
               }
             )}
+            role="group"
+            aria-hidden={openNavBoard ? 'false' : 'true'}
           >
             <div className="rounded-md border-2 border-zinc-600 bg-zinc-800 px-2 py-4 md:border-4">
               {id !== '' && (

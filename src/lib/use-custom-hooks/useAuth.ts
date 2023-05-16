@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 const useAuth = () => {
   const [authOnce, setAuthOnce] = useState<boolean>(() => false);
   const [authFailed, setAuthFailed] = useState<boolean>(() => false);
+  const [authLoading, setAuthLoading] = useState<boolean>(() => true);
 
   const nextRouter = useRouter();
   const reduxDispatch = useAppDispatch();
@@ -37,15 +38,18 @@ const useAuth = () => {
       } catch (error) {
         setAuthFailed(() => true);
         console.info(error);
+      } finally {
+        setAuthLoading(() => false);
       }
     };
 
     if (!authOnce) {
+      setAuthOnce(() => true);
       void getAuthRequest();
     }
   }, [authOnce, nextRouter, reduxDispatch]);
 
-  return authFailed;
+  return { authFailed, authLoading };
 };
 
 export default useAuth;

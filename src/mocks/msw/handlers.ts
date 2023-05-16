@@ -13,6 +13,108 @@ interface RegisterRequestBody {
 }
 
 export const handlers = [
+  rest.get('/products', async (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.delay(2000),
+      ctx.json({
+        code: 200,
+        status: 'success',
+        data: [
+          {
+            id: 1,
+            brand: 'google-play',
+            type: 'Voucher Game',
+            name: 'Kode Voucher Google Play',
+            priceName: 'IDR10000',
+            productStock: 1000,
+            productPrice: 11000,
+            reservation: 0,
+          },
+          {
+            id: 2,
+            brand: 'google-play',
+            type: 'Voucher Game',
+            name: 'Kode Voucher Google Play',
+            priceName: 'IDR20000',
+            productStock: 1000,
+            productPrice: 22000,
+            reservation: 0,
+          },
+          {
+            id: 3,
+            brand: 'google-play',
+            type: 'Voucher Game',
+            name: 'Kode Voucher Google Play',
+            priceName: 'IDR50000',
+            productStock: 1000,
+            productPrice: 52000,
+            reservation: 0,
+          },
+          {
+            id: 4,
+            brand: 'google-play',
+            type: 'Voucher Game',
+            name: 'Kode Voucher Google Play',
+            priceName: 'IDR120000',
+            productStock: 1000,
+            productPrice: 120000,
+            reservation: 0,
+          },
+          {
+            id: 5,
+            brand: 'steam',
+            type: 'Voucher Game',
+            name: 'Kode Voucher Steam',
+            priceName: 'IDR12000',
+            productStock: 1000,
+            productPrice: 13000,
+            reservation: 0,
+          },
+          {
+            id: 6,
+            brand: 'steam',
+            type: 'Voucher Game',
+            name: 'Kode Voucher Steam',
+            priceName: 'IDR45000',
+            productStock: 1000,
+            productPrice: 48000,
+            reservation: 0,
+          },
+          {
+            id: 7,
+            brand: 'steam',
+            type: 'Voucher Game',
+            name: 'Kode Voucher Steam',
+            priceName: 'IDR60000',
+            productStock: 1000,
+            productPrice: 64000,
+            reservation: 0,
+          },
+          {
+            id: 8,
+            brand: 'steam',
+            type: 'Voucher Game',
+            name: 'Kode Voucher Steam',
+            priceName: 'IDR90000',
+            productStock: 1000,
+            productPrice: 92000,
+            reservation: 0,
+          },
+          {
+            id: 9,
+            brand: 'steam',
+            type: 'Voucher Game',
+            name: 'Kode Voucher Steam',
+            priceName: 'IDR120000',
+            productStock: 1000,
+            productPrice: 122000,
+            reservation: 0,
+          },
+        ],
+      })
+    );
+  }),
   rest.get('/logout', async (req, res, ctx) => {
     return res(ctx.status(200));
   }),

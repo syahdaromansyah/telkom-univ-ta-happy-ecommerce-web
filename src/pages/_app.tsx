@@ -4,9 +4,11 @@ import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { Provider as ReduxProvider } from 'react-redux';
 
+const reduxStore = setupStore();
+
 export default function CustomApp({ Component, pageProps }: AppProps) {
   return (
-    <ReduxProvider store={setupStore()}>
+    <ReduxProvider store={reduxStore}>
       <LayoutPage>
         <Component {...pageProps} />
       </LayoutPage>

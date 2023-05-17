@@ -115,6 +115,107 @@ export const handlers = [
       })
     );
   }),
+  rest.get('/products/:productId', async (req, res, ctx) => {
+    const { productId } = req.params;
+
+    const productIdInt = parseInt(productId as string, 10);
+
+    const products = [
+      {
+        id: 1,
+        brand: 'google-play',
+        type: 'Voucher Game',
+        name: 'Kode Voucher Google Play',
+        priceName: 'IDR10000',
+        productStock: 1000,
+        productPrice: 11000,
+        reservation: 0,
+        feedbacks: [],
+      },
+      {
+        id: 2,
+        brand: 'google-play',
+        type: 'Voucher Game',
+        name: 'Kode Voucher Google Play',
+        priceName: 'IDR20000',
+        productStock: 1000,
+        productPrice: 22000,
+        reservation: 0,
+        feedbacks: [
+          {
+            id: 1,
+            fullName: 'Garry Doe',
+            feedback: 'Nice!!!',
+            createdAt: '2023-05-07T14:45:28Z',
+          },
+          {
+            id: 2,
+            fullName: 'Mariana Doe',
+            feedback: 'Good!!!',
+            createdAt: '2023-05-07T17:45:28Z',
+          },
+          {
+            id: 3,
+            fullName: 'Mariana Doe',
+            feedback: 'Good!!!',
+            createdAt: '2023-05-07T17:45:28Z',
+          },
+          {
+            id: 4,
+            fullName: 'Mariana Doe',
+            feedback: 'Good!!!',
+            createdAt: '2023-05-07T17:45:28Z',
+          },
+        ],
+      },
+      {
+        id: 3,
+        brand: 'steam',
+        type: 'Voucher Game',
+        name: 'Kode Voucher Steam',
+        priceName: 'IDR50000',
+        productStock: 1000,
+        productPrice: 54000,
+        reservation: 0,
+        feedbacks: [
+          {
+            id: 5,
+            fullName: 'Garry Doe',
+            feedback: 'Nice!!!',
+            createdAt: '2023-05-07T14:45:28Z',
+          },
+          {
+            id: 6,
+            fullName: 'Mariana Doe',
+            feedback: 'Good!!!',
+            createdAt: '2023-05-07T17:45:28Z',
+          },
+        ],
+      },
+    ];
+
+    const productNotFound = products[productIdInt - 1];
+
+    if (productNotFound === undefined) {
+      return res(
+        ctx.status(404),
+        ctx.json({
+          code: 404,
+          status: 'failed',
+          data: 'product is not found',
+        })
+      );
+    } else {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          code: 200,
+          status: 'success',
+          data: products[productIdInt - 1],
+        })
+      );
+    }
+  }),
   rest.get('/logout', async (req, res, ctx) => {
     return res(ctx.status(200));
   }),

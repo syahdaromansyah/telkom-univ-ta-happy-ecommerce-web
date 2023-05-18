@@ -310,6 +310,21 @@ export const handlers = [
       );
     }
   }),
+  rest.get('/auth', async (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        code: 200,
+        status: 'success',
+        data: {
+          id: 1,
+          fullname: 'Foo Bar',
+          username: 'foobar',
+          email: 'foobar@acme.com',
+        },
+      })
+    );
+  }),
   rest.get('/logout', async (req, res, ctx) => {
     return res(ctx.status(200));
   }),

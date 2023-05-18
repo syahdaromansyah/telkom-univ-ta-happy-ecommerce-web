@@ -216,6 +216,100 @@ export const handlers = [
       );
     }
   }),
+  rest.get('/orders/:orderId', async (req, res, ctx) => {
+    const { orderId } = req.params;
+
+    const oneYearInMs = 31556952000;
+    const fiveHourInMs = 18000000;
+
+    const orders = [
+      {
+        idOrder: 'abc123',
+        idProduct: 1,
+        brand: 'google-play',
+        type: 'Voucher Game',
+        name: 'Kode Voucher Google Play',
+        priceName: 'IDR10000',
+        price: 11000,
+        quantity: 8,
+        totalPrice: 88000,
+        orderedDate: '2023-05-07T14:36:54Z',
+        expiredDate: '2023-05-07T19:36:54Z',
+        statusPayment: false,
+        feedbackDone: false,
+      },
+      {
+        idOrder: 'abc234',
+        idProduct: 1,
+        brand: 'google-play',
+        type: 'Voucher Game',
+        name: 'Kode Voucher Google Play',
+        priceName: 'IDR10000',
+        price: 11000,
+        quantity: 8,
+        totalPrice: 88000,
+        orderedDate: new Date(Date.now() + oneYearInMs).toISOString(),
+        expiredDate: new Date(
+          Date.now() + oneYearInMs + fiveHourInMs
+        ).toISOString(),
+        statusPayment: false,
+        feedbackDone: false,
+      },
+      {
+        idOrder: 'abc345',
+        idProduct: 1,
+        brand: 'google-play',
+        type: 'Voucher Game',
+        name: 'Kode Voucher Google Play',
+        priceName: 'IDR10000',
+        price: 11000,
+        quantity: 8,
+        totalPrice: 88000,
+        orderedDate: '2023-05-07T14:36:54Z',
+        expiredDate: '2023-05-07T19:36:54Z',
+        statusPayment: true,
+        feedbackDone: false,
+      },
+      {
+        idOrder: 'abc456',
+        idProduct: 1,
+        brand: 'google-play',
+        type: 'Voucher Game',
+        name: 'Kode Voucher Google Play',
+        priceName: 'IDR10000',
+        price: 11000,
+        quantity: 8,
+        totalPrice: 88000,
+        orderedDate: '2023-05-07T14:36:54Z',
+        expiredDate: '2023-05-07T19:36:54Z',
+        statusPayment: true,
+        feedbackDone: true,
+      },
+    ];
+
+    const orderNotFound =
+      orders.find((order) => order.idOrder === orderId) === undefined;
+
+    if (orderNotFound) {
+      return res(
+        ctx.status(404),
+        ctx.json({
+          code: 404,
+          status: 'failed',
+          data: 'order is not found',
+        })
+      );
+    } else {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          code: 200,
+          status: 'success',
+          data: orders.find((order) => order.idOrder === orderId),
+        })
+      );
+    }
+  }),
   rest.get('/logout', async (req, res, ctx) => {
     return res(ctx.status(200));
   }),
@@ -288,5 +382,8 @@ export const handlers = [
         })
       );
     }
+  }),
+  rest.delete('/orders/:orderId', async (req, res, ctx) => {
+    return res(ctx.status(200));
   }),
 ];

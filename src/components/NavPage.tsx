@@ -66,21 +66,35 @@ export default function NavPage() {
             >
               <div className="h-6 w-6 md:h-10 md:w-10">
                 <div className="flex h-full w-full items-center justify-center">
-                  <FontAwesomeIcon className="h-full" icon={faUserCircle} />
+                  <FontAwesomeIcon
+                    className="h-full"
+                    icon={faUserCircle}
+                    role="presentation"
+                  />
                 </div>
               </div>
+
+              <p className="absolute top-[-9999px] left-[-9999px]">
+                {!openNavBoard && 'Buka halaman navigasi menu'}{' '}
+                {openNavBoard && 'Tutup halaman navigasi menu'}
+              </p>
             </button>
           </div>
 
           <div
             className={cn(
-              'absolute top-full right-0 z-50 min-w-[172px] p-2 lg:px-0',
+              'nav-menu-page absolute top-full right-0 z-50 min-w-[172px] p-2 lg:px-0',
               {
                 hidden: !openNavBoard,
               }
             )}
+            role="group"
+            aria-hidden={openNavBoard ? 'false' : 'true'}
           >
-            <div className="rounded-md border-2 border-zinc-600 bg-zinc-800 px-2 py-4 md:border-4">
+            <div
+              className="nav-menu-page_board rounded-md border-2 border-zinc-600 bg-zinc-800 px-2 py-4 md:border-4"
+              role="menu"
+            >
               {id !== '' && (
                 <>
                   <div className="mb-4 rounded-md px-3 py-2">

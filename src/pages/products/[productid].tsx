@@ -6,12 +6,12 @@ import { poppinsFont } from '@/lib/nextFonts';
 import { useAppSelector } from '@/redux-app/redux-typed-hook/typedHooks';
 import { authSelector } from '@/redux-app/slices/authSlice';
 import type { ProductData, WebResponse } from '@/types/types';
+import axios from 'axios';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { MouseEvent, useState } from 'react';
-import type { Fetcher } from 'swr';
 import useSWR from 'swr';
 import googlePlayLogo from '../../assets/logos/google-play-logo.png';
 import steamLogo from '../../assets/logos/steam-logo.png';
@@ -23,8 +23,12 @@ const productBrand = {
   steam: steamLogo,
 };
 
-const swrFetcher: Fetcher<WebResponse<ProductData>, string> = (...args) =>
-  fetch(...args).then((res) => res.json());
+const swrFetcher = (url: string) =>
+  axios
+    .get<WebResponse<ProductData>>(url, {
+      withCredentials: true,
+    })
+    .then((res) => res.data);
 
 export default function ProductDetail() {
   const [totalProduct, setTotalProduct] = useState<number>(() => 1);
@@ -177,33 +181,57 @@ export default function ProductDetail() {
                         Jumlah Pembelian
                       </h4>
                       <div className="grid w-max grid-cols-3 gap-x-2">
+                        <label
+                          className="absolute top-[-9999px] left-[-9999px] inline-block"
+                          htmlFor="subtract-total-product"
+                        >
+                          Kurangi satu dari total produk
+                        </label>
+
                         <button
                           className="inline-block rounded-md bg-zinc-800 disabled:text-zinc-600"
                           type="button"
                           onClick={totalProductHandler}
                           data-total-product-ops="minus"
-                          aria-label="Tombol mengurangi satu pembelian produk"
                           disabled={id === ''}
+                          id="subtract-total-product"
                         >
-                          <span>-</span>
+                          <span aria-hidden="true" className="inline-block">
+                            -
+                          </span>
                         </button>
 
-                        <p
-                          className="flex h-10 w-10 select-none items-center justify-center rounded-md bg-zinc-600"
-                          aria-label={`Total pembelian saat ini berjumlah ${totalProduct}`}
+                        <div>
+                          <p className="absolute top-[-9999px] left-[-9999px] inline-block">
+                            Total produk saat ini adalah {totalProduct}
+                          </p>
+
+                          <span
+                            className="flex h-10 w-10 select-none items-center justify-center rounded-md bg-zinc-600"
+                            aria-hidden="true"
+                          >
+                            {totalProduct}
+                          </span>
+                        </div>
+
+                        <label
+                          className="absolute top-[-9999px] left-[-9999px] inline-block"
+                          htmlFor="add-total-product"
                         >
-                          {totalProduct}
-                        </p>
+                          Tambahi satu dari total produk
+                        </label>
 
                         <button
                           className="inline-block h-10 w-10 rounded-md bg-zinc-800 text-xl disabled:text-zinc-600"
                           type="button"
                           onClick={totalProductHandler}
                           data-total-product-ops="plus"
-                          aria-label="Tombol menambahkan satu pembelian produk"
                           disabled={id === ''}
+                          id="add-total-product"
                         >
-                          <span>+</span>
+                          <span aria-hidden="true" className="inline-block">
+                            +
+                          </span>
                         </button>
                       </div>
                     </div>
@@ -214,20 +242,20 @@ export default function ProductDetail() {
                         type="button"
                         onClick={orderHandler}
                       >
-                        Pesan
+                        Pesan Produk
                       </button>
                     ) : (
                       <Link
                         href="/login"
                         className="inline-block w-full rounded-md bg-zinc-600 py-3 text-center font-poppins text-lg font-semibold lg:text-xl"
                       >
-                        Login
+                        Silakan Login
                       </Link>
                     )}
                   </div>
                 </article>
 
-                {id !== '' && productData && (
+                {id !== '' && productData && openCheckout && (
                   <CheckoutBoard
                     openCheckout={openCheckout}
                     closeCheckoutHandler={closeCheckoutHandler}

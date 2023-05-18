@@ -3,13 +3,17 @@ import ProductCard from '@/components/ProductCard';
 import config from '@/config/config';
 import { poppinsFont } from '@/lib/nextFonts';
 import type { ProductData, WebResponse } from '@/types/types';
+import axios from 'axios';
 import Head from 'next/head';
 import { ChangeEvent, useState } from 'react';
-import type { Fetcher } from 'swr';
 import useSWR from 'swr';
 
-const swrFetcher: Fetcher<WebResponse<ProductData[]>, string> = (...args) =>
-  fetch(...args).then((res) => res.json());
+const swrFetcher = (url: string) =>
+  axios
+    .get<WebResponse<ProductData[]>>(url, {
+      withCredentials: true,
+    })
+    .then((res) => res.data);
 
 export default function Home() {
   const [searchProduct, setSearchProduct] = useState<string>(() => '');

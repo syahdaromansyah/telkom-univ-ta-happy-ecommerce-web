@@ -23,20 +23,23 @@ const swrFetcher = (url: string) =>
 
 export default function Transaction() {
   const nextRouter = useRouter();
-  const authFailed = useAuth();
+  const { authFailed, authLoading } = useAuth();
 
   const { data: ordersGetResponse, isLoading } = useSWR(
-    `${config.HAPPY_BASE_URL_API}/orders/orderByIdUser`,
+    authLoading || authFailed
+      ? null
+      : `${config.HAPPY_BASE_URL_API}/orders/orderByIdUser`,
     swrFetcher
   );
+
   const { id } = useAppSelector(authSelector);
 
   useEffect(() => {
     const redirect = async () => nextRouter.replace('/login');
-    if (authFailed) {
+    if (!authLoading && authFailed) {
       void redirect();
     }
-  }, [authFailed, nextRouter]);
+  }, [authFailed, authLoading, nextRouter]);
 
   return (
     <div className={`${poppinsFont.variable}`}>
@@ -49,7 +52,7 @@ export default function Transaction() {
         />
       </Head>
 
-      {!isEmpty(id) && !isLoading && (
+      {!isEmpty(id) && !isLoading && !authLoading && (
         <>
           <header>
             <NavPage />

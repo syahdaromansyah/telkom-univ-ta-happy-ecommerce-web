@@ -32,14 +32,14 @@ const swrFetcher = (url: string) =>
     .then((res) => res.data);
 
 export default function OrderDetail() {
-  const authFailed = useAuth();
+  const { authFailed, authLoading } = useAuth();
 
   const [openReview, setOpenReview] = useState<boolean>(() => false);
   const [disableReview, setDisableReview] = useState<boolean>(() => false);
 
   const nextRouter = useRouter();
   const { data: orderGetResponse } = useSWR(
-    nextRouter.query.orderid
+    !authLoading && !authFailed && nextRouter.query.orderid
       ? `${config.HAPPY_BASE_URL_API}/orders/${
           nextRouter.query.orderid as string
         }`
@@ -96,22 +96,9 @@ export default function OrderDetail() {
     }
   }, [authFailed, nextRouter]);
 
-  useEffect(() => {
-    if (orderResData) {
-      console.info(
-        orderResData.orderedDate,
-        new Date(orderResData.orderedDate)
-      );
-      console.info(
-        orderResData.expiredDate,
-        new Date(orderResData.expiredDate)
-      );
-    }
-  });
-
   return (
     <>
-      {orderGetResponse && orderResData && (
+      {orderResData && (
         <div className={`${poppinsFont.variable}`}>
           <Head>
             <title>Detail Pemesanan | Happy</title>
@@ -148,7 +135,7 @@ export default function OrderDetail() {
                   <div>
                     <div className="mb-4 flex items-center justify-between md:grid md:gap-y-2">
                       <div className="rounded-md bg-rose-600 p-1 md:max-w-max">
-                        <p className="text-sm md:text-lg">Kode Voucher</p>
+                        <p className="text-sm md:text-lg">Voucher Game</p>
                       </div>
 
                       <div
@@ -260,7 +247,7 @@ export default function OrderDetail() {
                           }}
                           disabled={isExpired()}
                         >
-                          Pembayaran Kadaluarsa
+                          Pembayaran kadaluarsa
                         </button>
                       )}
                       {!isExpired() && !orderResData.statusPayment && (
@@ -270,7 +257,7 @@ export default function OrderDetail() {
                           onClick={cancelPaymentHandler}
                           disabled={isExpired()}
                         >
-                          Batalkan Pemesanan
+                          Batalkan pemesanan
                         </button>
                       )}
 
@@ -290,7 +277,7 @@ export default function OrderDetail() {
                   </div>
                 </article>
 
-                {orderResData.statusPayment && (
+                {openReview && orderResData.statusPayment && (
                   <ReviewBoard
                     openReview={openReview}
                     closeReviewHandler={closeReviewHandler}

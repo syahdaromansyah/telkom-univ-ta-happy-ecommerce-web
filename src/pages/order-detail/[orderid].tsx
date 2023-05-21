@@ -6,7 +6,7 @@ import useAuth from '@/lib/use-custom-hooks/useAuth';
 import type { OrderData, WebResponse } from '@/types/types';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
-import cn from 'classNames';
+import cn from 'classnames';
 import { format } from 'date-fns';
 import Head from 'next/head';
 import Image from 'next/image';

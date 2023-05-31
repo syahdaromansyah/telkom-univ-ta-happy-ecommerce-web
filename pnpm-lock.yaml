@@ -23,6 +23,7 @@ specifiers:
   eslint: 8.35.0
   eslint-config-next: 13.2.3
   eslint-config-prettier: ^8.7.0
+  eslint-plugin-cypress: ^2.13.3
   eslint-plugin-jest-dom: ^4.0.3
   eslint-plugin-testing-library: ^5.10.3
   eslint-plugin-unused-imports: ^2.0.0
@@ -78,6 +79,7 @@ devDependencies:
   '@typescript-eslint/parser': 5.54.1_ycpbpc6yetojsgtrx3mwntkhsu
   autoprefixer: 10.4.14_postcss@8.4.21
   eslint-config-prettier: 8.7.0_eslint@8.35.0
+  eslint-plugin-cypress: 2.13.3_eslint@8.35.0
   eslint-plugin-jest-dom: 4.0.3_eslint@8.35.0
   eslint-plugin-testing-library: 5.10.3_ycpbpc6yetojsgtrx3mwntkhsu
   eslint-plugin-unused-imports: 2.0.0_vkrezerrv4xnu4uoc4gpfx7tv4
@@ -3704,6 +3706,18 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
+
+  /eslint-plugin-cypress/2.13.3_eslint@8.35.0:
+    resolution:
+      {
+        integrity: sha512-nAPjZE5WopCsgJwl3vHm5iafpV+ZRO76Z9hMyRygWhmg5ODXDPd+9MaPl7kdJ2azj+sO87H3P1PRnggIrz848g==,
+      }
+    peerDependencies:
+      eslint: '>= 3.2.1'
+    dependencies:
+      eslint: 8.35.0
+      globals: 11.12.0
+    dev: true
 
   /eslint-plugin-import/2.27.5_yiggpkcwtyhpwcphetqfqiayhm:
     resolution:

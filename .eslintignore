@@ -18,6 +18,7 @@
 
 /coverage/
 /dist/
+/cypress/
 
 /.next/
 /.swc/

@@ -4,6 +4,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:jest-dom/recommended',
+    'plugin:cypress/recommended',
     'next/core-web-vitals',
     'prettier',
   ],
@@ -17,8 +18,12 @@ module.exports = {
     'unused-imports',
     'testing-library',
     'jest-dom',
+    'cypress',
   ],
   root: true,
+  env: {
+    'cypress/globals': true,
+  },
   rules: {
     '@typescript-eslint/no-misused-promises': [
       2,
@@ -47,6 +52,12 @@ module.exports = {
     'jest-dom/prefer-enabled-disabled': 'error',
     'jest-dom/prefer-required': 'error',
     'jest-dom/prefer-to-have-attribute': 'error',
+    'cypress/no-assigning-return-values': 'error',
+    'cypress/no-unnecessary-waiting': 'error',
+    'cypress/assertion-before-screenshot': 'warn',
+    'cypress/no-force': 'warn',
+    'cypress/no-async-tests': 'error',
+    'cypress/no-pause': 'error',
   },
   overrides: [
     {

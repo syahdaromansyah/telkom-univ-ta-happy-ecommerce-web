@@ -169,7 +169,9 @@ export default function OrderDetail() {
                         <h4 className="mb-1 font-poppins font-bold lg:text-3xl">
                           ID Pemesanan
                         </h4>
-                        <p className="lg:text-xl">{orderResData.idOrder}</p>
+                        <p className="break-all rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
+                          {orderResData.idOrder}
+                        </p>
                       </div>
 
                       <div className="mb-2 lg:grid lg:gap-y-2">

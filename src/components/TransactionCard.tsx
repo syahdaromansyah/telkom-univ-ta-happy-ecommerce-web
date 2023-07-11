@@ -66,7 +66,7 @@ export default function TransactionCard({
         <div className="grid gap-y-2">
           <div>
             <h3 className="font-poppins font-bold">ID Pemesanan</h3>
-            <p className="w-full break-all rounded-md bg-zinc-600 py-1 px-2">
+            <p className="w-full break-all rounded-md bg-zinc-600 px-2 py-1">
               {idOrder}
             </p>
           </div>

@@ -48,7 +48,7 @@ export default function OrderDetail() {
   );
 
   const orderResData = orderGetResponse?.data;
-  const adminWhatsappPhone = '6285795702195';
+  const adminWhatsappPhone = '628123456789';
   const adminWhatsappLink = `https://wa.me/${adminWhatsappPhone}?text=Halo!%20Saya%20ingin%20melakukan%20verifikasi%20pembayaran%20dan%20berikut%20detail%20pemesanan%20saya%3A%0A%0A**ID%20Pemesanan**%0AABC123%0A%0A**Total%20Pembayaran**%0ARp%2011.000%2C00%0A%0ABerikut%20bukti%20gambar%20hasil%20transaksi%20pembayaran%20saya...%0ATerima%20kasih.`;
 
   const isExpired = () => {
@@ -303,7 +303,7 @@ export default function OrderDetail() {
                         <h3 className="font-poppins text-lg font-bold">
                           Nama Bank
                         </h3>
-                        <p>BNI</p>
+                        <p>Acme Bank</p>
                       </section>
 
                       <section>
@@ -317,7 +317,7 @@ export default function OrderDetail() {
                         <h3 className="font-poppins text-lg font-bold">
                           Nama Pemilik Rekening
                         </h3>
-                        <p>Foo Bar Baz</p>
+                        <p>HappyStore</p>
                       </section>
                     </div>
 

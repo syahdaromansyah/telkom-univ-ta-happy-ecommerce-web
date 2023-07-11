@@ -12,7 +12,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ChangeEvent } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'validator/lib/isEmpty';
 import isLength from 'validator/lib/isLength';
@@ -26,6 +26,8 @@ export default function Register() {
   const [regLoading, setRegLoading] = useState<boolean>(() => false);
   const [regAlert, setRegAlert] = useState<string>(() => '');
 
+  const usernameInputRef = useRef<HTMLInputElement | null>(null);
+
   const nextRouter = useRouter();
   const { id } = useAppSelector(authSelector);
 
@@ -38,7 +40,8 @@ export default function Register() {
     isEmpty(uFullname);
 
   const usernameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.split(' ').join('');
+    const inputValue = e.target.value.split(' ').join('').toLowerCase();
+    (usernameInputRef.current as HTMLInputElement).value = inputValue;
     setUsername(() => inputValue);
   };
 
@@ -160,6 +163,7 @@ export default function Register() {
                     placeholder="Username"
                     id="register-username"
                     onChange={usernameHandler}
+                    ref={usernameInputRef}
                   />
                 </label>
 

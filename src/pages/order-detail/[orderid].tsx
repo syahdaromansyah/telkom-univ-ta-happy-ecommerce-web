@@ -13,15 +13,15 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import {
-  default as googlePlayLogo,
-  default as steamLogo,
-} from '../../assets/logos/google-play-logo.png';
+import googlePlayLogo from '../../assets/logos/google-play-logo.png';
+import pointBlankLogo from '../../assets/logos/point-blank-logo.png';
+import steamLogo from '../../assets/logos/steam-logo.png';
 import whatsappMeLogo from '../../assets/logos/whatsapp-button-green-large.png';
 
 const productBrand = {
   'google-play': googlePlayLogo,
   steam: steamLogo,
+  'point-blank': pointBlankLogo,
 };
 
 const swrFetcher = (url: string) =>

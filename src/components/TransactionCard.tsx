@@ -3,11 +3,12 @@ import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import googlePlayLogo from '../assets/logos/google-play-logo.png';
+import pointBlankLogo from '../assets/logos/point-blank-logo.png';
 import steamLogo from '../assets/logos/steam-logo.png';
 
 interface TransactionCardProps {
   idOrder: string;
-  brand: 'google-play' | 'steam';
+  brand: 'google-play' | 'steam' | 'point-blank';
   name: string;
   priceName: string;
   price: number;
@@ -21,6 +22,7 @@ interface TransactionCardProps {
 const productBrand = {
   'google-play': googlePlayLogo,
   steam: steamLogo,
+  'point-blank': pointBlankLogo,
 };
 
 export default function TransactionCard({

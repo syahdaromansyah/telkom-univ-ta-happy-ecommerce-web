@@ -1,11 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import googlePlayLogo from '../assets/logos/google-play-logo.png';
+import pointBlankLogo from '../assets/logos/point-blank-logo.png';
 import steamLogo from '../assets/logos/steam-logo.png';
+
+type ProductBrand = 'google-play' | 'steam' | 'point-blank';
 
 interface ProductCardProps {
   productId: number;
-  productBrand: 'google-play' | 'steam';
+  productBrand: ProductBrand;
   productName: string;
   productPriceName: string;
   productStock: number;
@@ -15,6 +18,7 @@ interface ProductCardProps {
 const productBrandLogo = {
   'google-play': googlePlayLogo,
   steam: steamLogo,
+  'point-blank': pointBlankLogo,
 };
 
 export default function ProductCard({

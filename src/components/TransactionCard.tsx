@@ -40,7 +40,7 @@ export default function TransactionCard({
   const isExpired = Date.now() - Date.parse(expiredDate) > 0;
 
   return (
-    <article className="overflow-hidden rounded-md bg-zinc-800">
+    <article className="relative min-h-[790px] overflow-hidden rounded-md bg-zinc-800">
       <div className="mb-2 bg-zinc-100 py-10">
         <div className="h-16">
           <Image
@@ -123,7 +123,7 @@ export default function TransactionCard({
         </div>
       </div>
 
-      <div>
+      <div className="absolute bottom-0 w-full">
         <Link
           className="inline-block w-full bg-rose-600 py-4 text-center font-poppins font-semibold"
           href={`/order-detail/${idOrder}`}

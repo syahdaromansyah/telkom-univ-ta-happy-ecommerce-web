@@ -115,7 +115,7 @@ export default function OrderDetail() {
 
           <main>
             <div className="container mx-auto max-w-6xl px-6 lg:px-0">
-              <div className="pt-8 pb-10 lg:pt-16">
+              <div className="pb-10 pt-8 lg:pt-16">
                 <h1 className="mb-4 text-center font-poppins text-2xl font-bold md:mb-8 lg:mb-16 lg:text-4xl">
                   Detail Pemesanan
                 </h1>
@@ -179,7 +179,7 @@ export default function OrderDetail() {
                           Tanggal Pemesanan
                         </h4>
 
-                        <p className="lg:text-xl">
+                        <p className="rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
                           <time dateTime={orderResData.orderedDate}>
                             {format(
                               new Date(orderResData.orderedDate),
@@ -194,7 +194,7 @@ export default function OrderDetail() {
                           Tanggal Kadaluarsa
                         </h4>
 
-                        <p className="lg:text-xl">
+                        <p className="rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
                           <time dateTime={orderResData.expiredDate}>
                             {format(
                               new Date(orderResData.expiredDate),
@@ -209,7 +209,7 @@ export default function OrderDetail() {
                           Harga Produk
                         </h4>
 
-                        <p className="lg:text-xl">
+                        <p className="rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
                           {new Intl.NumberFormat('id-ID', {
                             style: 'currency',
                             currency: 'IDR',
@@ -222,7 +222,9 @@ export default function OrderDetail() {
                           Jumlah Pembelian
                         </h4>
 
-                        <p className="lg:text-xl">{orderResData.quantity}</p>
+                        <p className="rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
+                          {orderResData.quantity}
+                        </p>
                       </div>
 
                       <div className="mb-2 lg:grid lg:gap-y-2">
@@ -230,7 +232,7 @@ export default function OrderDetail() {
                           Total Pembayaran
                         </h4>
 
-                        <p className="lg:text-xl">
+                        <p className="rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
                           {new Intl.NumberFormat('id-ID', {
                             style: 'currency',
                             currency: 'IDR',

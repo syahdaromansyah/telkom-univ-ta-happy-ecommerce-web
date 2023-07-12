@@ -59,7 +59,9 @@ export default function TransactionCard({
         </div>
 
         <div className="mb-4">
-          <h2 className="font-poppins text-xl font-bold">{name}</h2>
+          <h2 className="truncate font-poppins text-xl font-bold" title={name}>
+            {name}
+          </h2>
           <p>({priceName})</p>
         </div>
 

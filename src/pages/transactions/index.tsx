@@ -82,23 +82,30 @@ export default function Transaction() {
                       ) : (
                         <div>
                           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                            {ordersGetResponse.data.map((order) => {
-                              return (
-                                <TransactionCard
-                                  key={order.idOrder}
-                                  idOrder={order.idOrder}
-                                  brand={order.brand}
-                                  name={order.name}
-                                  expiredDate={order.expiredDate}
-                                  orderedDate={order.orderedDate}
-                                  priceName={order.priceName}
-                                  price={order.price}
-                                  statusPayment={order.statusPayment}
-                                  totalPrice={order.totalPrice}
-                                  quantity={order.quantity}
-                                />
-                              );
-                            })}
+                            {ordersGetResponse.data
+                              .sort((orderA, orderB) => {
+                                return (
+                                  Date.parse(orderB.orderedDate) -
+                                  Date.parse(orderA.orderedDate)
+                                );
+                              })
+                              .map((order) => {
+                                return (
+                                  <TransactionCard
+                                    key={order.idOrder}
+                                    idOrder={order.idOrder}
+                                    brand={order.brand}
+                                    name={order.name}
+                                    expiredDate={order.expiredDate}
+                                    orderedDate={order.orderedDate}
+                                    priceName={order.priceName}
+                                    price={order.price}
+                                    statusPayment={order.statusPayment}
+                                    totalPrice={order.totalPrice}
+                                    quantity={order.quantity}
+                                  />
+                                );
+                              })}
                           </div>
                         </div>
                       )}

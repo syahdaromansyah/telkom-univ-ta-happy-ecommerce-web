@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { MouseEvent, useState } from 'react';
 import useSWR from 'swr';
 import googlePlayLogo from '../../assets/logos/google-play-logo.png';
+import pointBlankLogo from '../../assets/logos/point-blank-logo.png';
 import steamLogo from '../../assets/logos/steam-logo.png';
 
 type TotalProductOps = 'minus' | 'plus';
@@ -21,6 +22,7 @@ type TotalProductOps = 'minus' | 'plus';
 const productBrand = {
   'google-play': googlePlayLogo,
   steam: steamLogo,
+  'point-blank': pointBlankLogo,
 };
 
 const swrFetcher = (url: string) =>
@@ -94,7 +96,7 @@ export default function ProductDetail() {
 
           <main>
             <div className="container mx-auto max-w-6xl px-6 lg:px-0">
-              <div className="pt-8 pb-10 lg:pt-16">
+              <div className="pb-10 pt-8 lg:pt-16">
                 <h1 className="mb-4 text-center font-poppins text-2xl font-bold md:mb-8 lg:mb-16 lg:text-4xl">
                   Detail Produk
                 </h1>
@@ -182,7 +184,7 @@ export default function ProductDetail() {
                       </h4>
                       <div className="grid w-max grid-cols-3 gap-x-2">
                         <label
-                          className="absolute top-[-9999px] left-[-9999px] inline-block"
+                          className="absolute left-[-9999px] top-[-9999px] inline-block"
                           htmlFor="subtract-total-product"
                         >
                           Kurangi satu dari total produk
@@ -202,7 +204,7 @@ export default function ProductDetail() {
                         </button>
 
                         <div>
-                          <p className="absolute top-[-9999px] left-[-9999px] inline-block">
+                          <p className="absolute left-[-9999px] top-[-9999px] inline-block">
                             Total produk saat ini adalah {totalProduct}
                           </p>
 
@@ -215,7 +217,7 @@ export default function ProductDetail() {
                         </div>
 
                         <label
-                          className="absolute top-[-9999px] left-[-9999px] inline-block"
+                          className="absolute left-[-9999px] top-[-9999px] inline-block"
                           htmlFor="add-total-product"
                         >
                           Tambahi satu dari total produk
@@ -273,7 +275,7 @@ export default function ProductDetail() {
                   </h2>
 
                   {!productData?.feedbacks && (
-                    <div className="pt-4 pb-6">
+                    <div className="pb-6 pt-4">
                       <p>Belum ada ulasan mengenai produk ini.</p>
                     </div>
                   )}

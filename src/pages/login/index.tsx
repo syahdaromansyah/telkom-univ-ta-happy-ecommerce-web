@@ -19,7 +19,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import isEmpty from 'validator/lib/isEmpty';
 import isLength from 'validator/lib/isLength';
 import isLowercase from 'validator/lib/isLowercase';
@@ -29,6 +29,8 @@ export default function Login() {
   const [uPassword, setUPasswordInput] = useState<string>(() => '');
   const [regAlert, setRegAlert] = useState<string>(() => '');
   const [loginLoading, setLoginLoading] = useState<boolean>(() => false);
+
+  const usernameInputRef = useRef<HTMLInputElement | null>(null);
 
   const nextRouter = useRouter();
   const reduxDispatch = useAppDispatch();
@@ -42,7 +44,8 @@ export default function Login() {
     isEmpty(username);
 
   const usernameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.split(' ').join('');
+    const inputValue = e.target.value.split(' ').join('').toLowerCase();
+    (usernameInputRef.current as HTMLInputElement).value = inputValue;
     setUsernameInput(() => inputValue);
   };
 
@@ -156,6 +159,7 @@ export default function Login() {
                     placeholder="Username"
                     id="login-username"
                     onChange={usernameHandler}
+                    ref={usernameInputRef}
                   />
                 </label>
 

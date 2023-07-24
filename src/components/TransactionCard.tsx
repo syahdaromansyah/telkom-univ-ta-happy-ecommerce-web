@@ -3,11 +3,12 @@ import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import googlePlayLogo from '../assets/logos/google-play-logo.png';
+import pointBlankLogo from '../assets/logos/point-blank-logo.png';
 import steamLogo from '../assets/logos/steam-logo.png';
 
 interface TransactionCardProps {
   idOrder: string;
-  brand: 'google-play' | 'steam';
+  brand: 'google-play' | 'steam' | 'point-blank';
   name: string;
   priceName: string;
   price: number;
@@ -21,6 +22,7 @@ interface TransactionCardProps {
 const productBrand = {
   'google-play': googlePlayLogo,
   steam: steamLogo,
+  'point-blank': pointBlankLogo,
 };
 
 export default function TransactionCard({
@@ -57,14 +59,16 @@ export default function TransactionCard({
         </div>
 
         <div className="mb-4">
-          <h2 className="font-poppins text-xl font-bold">{name}</h2>
+          <h2 className="truncate font-poppins text-xl font-bold" title={name}>
+            {name}
+          </h2>
           <p>({priceName})</p>
         </div>
 
         <div className="grid gap-y-2">
           <div>
             <h3 className="font-poppins font-bold">ID Pemesanan</h3>
-            <p className="w-full break-all rounded-md bg-zinc-600 py-1 px-2">
+            <p className="w-full break-all rounded-md bg-zinc-600 px-2 py-1">
               {idOrder}
             </p>
           </div>

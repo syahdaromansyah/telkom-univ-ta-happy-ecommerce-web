@@ -10,7 +10,8 @@
     "format": "prettier -w \"**/*.{js,jsx,ts,tsx,json,yaml,yml,css,md,mdx}\"",
     "format-c": "prettier -c \"**/*.{js,jsx,ts,tsx,json,yaml,yml,css,md,mdx}\"",
     "test": "jest --watch --verbose",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
@@ -24,6 +25,7 @@
     "@types/validator": "^13.7.15",
     "axios": "^1.4.0",
     "classnames": "^2.3.2",
+    "cypress": "^12.13.0",
     "date-fns": "^2.29.3",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
@@ -44,6 +46,7 @@
     "@typescript-eslint/parser": "^5.54.1",
     "autoprefixer": "^10.4.14",
     "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-cypress": "^2.13.3",
     "eslint-plugin-jest-dom": "^4.0.3",
     "eslint-plugin-testing-library": "^5.10.3",
     "eslint-plugin-unused-imports": "^2.0.0",

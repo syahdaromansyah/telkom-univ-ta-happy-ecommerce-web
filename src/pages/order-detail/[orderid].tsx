@@ -13,15 +13,15 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import {
-  default as googlePlayLogo,
-  default as steamLogo,
-} from '../../assets/logos/google-play-logo.png';
+import googlePlayLogo from '../../assets/logos/google-play-logo.png';
+import pointBlankLogo from '../../assets/logos/point-blank-logo.png';
+import steamLogo from '../../assets/logos/steam-logo.png';
 import whatsappMeLogo from '../../assets/logos/whatsapp-button-green-large.png';
 
 const productBrand = {
   'google-play': googlePlayLogo,
   steam: steamLogo,
+  'point-blank': pointBlankLogo,
 };
 
 const swrFetcher = (url: string) =>
@@ -48,7 +48,7 @@ export default function OrderDetail() {
   );
 
   const orderResData = orderGetResponse?.data;
-  const adminWhatsappPhone = '6285795702195';
+  const adminWhatsappPhone = '628123456789';
   const adminWhatsappLink = `https://wa.me/${adminWhatsappPhone}?text=Halo!%20Saya%20ingin%20melakukan%20verifikasi%20pembayaran%20dan%20berikut%20detail%20pemesanan%20saya%3A%0A%0A**ID%20Pemesanan**%0AABC123%0A%0A**Total%20Pembayaran**%0ARp%2011.000%2C00%0A%0ABerikut%20bukti%20gambar%20hasil%20transaksi%20pembayaran%20saya...%0ATerima%20kasih.`;
 
   const isExpired = () => {
@@ -115,7 +115,7 @@ export default function OrderDetail() {
 
           <main>
             <div className="container mx-auto max-w-6xl px-6 lg:px-0">
-              <div className="pt-8 pb-10 lg:pt-16">
+              <div className="pb-10 pt-8 lg:pt-16">
                 <h1 className="mb-4 text-center font-poppins text-2xl font-bold md:mb-8 lg:mb-16 lg:text-4xl">
                   Detail Pemesanan
                 </h1>
@@ -169,7 +169,9 @@ export default function OrderDetail() {
                         <h4 className="mb-1 font-poppins font-bold lg:text-3xl">
                           ID Pemesanan
                         </h4>
-                        <p className="lg:text-xl">{orderResData.idOrder}</p>
+                        <p className="break-all rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
+                          {orderResData.idOrder}
+                        </p>
                       </div>
 
                       <div className="mb-2 lg:grid lg:gap-y-2">
@@ -177,7 +179,7 @@ export default function OrderDetail() {
                           Tanggal Pemesanan
                         </h4>
 
-                        <p className="lg:text-xl">
+                        <p className="rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
                           <time dateTime={orderResData.orderedDate}>
                             {format(
                               new Date(orderResData.orderedDate),
@@ -192,7 +194,7 @@ export default function OrderDetail() {
                           Tanggal Kadaluarsa
                         </h4>
 
-                        <p className="lg:text-xl">
+                        <p className="rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
                           <time dateTime={orderResData.expiredDate}>
                             {format(
                               new Date(orderResData.expiredDate),
@@ -207,7 +209,7 @@ export default function OrderDetail() {
                           Harga Produk
                         </h4>
 
-                        <p className="lg:text-xl">
+                        <p className="rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
                           {new Intl.NumberFormat('id-ID', {
                             style: 'currency',
                             currency: 'IDR',
@@ -220,7 +222,9 @@ export default function OrderDetail() {
                           Jumlah Pembelian
                         </h4>
 
-                        <p className="lg:text-xl">{orderResData.quantity}</p>
+                        <p className="rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
+                          {orderResData.quantity}
+                        </p>
                       </div>
 
                       <div className="mb-2 lg:grid lg:gap-y-2">
@@ -228,7 +232,7 @@ export default function OrderDetail() {
                           Total Pembayaran
                         </h4>
 
-                        <p className="lg:text-xl">
+                        <p className="rounded-md bg-zinc-600 px-2 py-1 lg:text-xl">
                           {new Intl.NumberFormat('id-ID', {
                             style: 'currency',
                             currency: 'IDR',
@@ -299,7 +303,7 @@ export default function OrderDetail() {
                         <h3 className="font-poppins text-lg font-bold">
                           Nama Bank
                         </h3>
-                        <p>BNI</p>
+                        <p>Acme Bank</p>
                       </section>
 
                       <section>
@@ -313,7 +317,7 @@ export default function OrderDetail() {
                         <h3 className="font-poppins text-lg font-bold">
                           Nama Pemilik Rekening
                         </h3>
-                        <p>Foo Bar Baz</p>
+                        <p>HappyStore</p>
                       </section>
                     </div>
 

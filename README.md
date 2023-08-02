@@ -16,4 +16,4 @@ Microservices dan Sistem Aplikasi Monitoring Berbasis Service Mesh
 - Syahda Romansyah / 1101190402
 - Fatma Nur Afifah / 1101194137
 
-### 2023, Telkom University
+### 2022-2023, Telkom University
